@@ -26,10 +26,58 @@ const _ = {
 
   pad(string, length) {
     if (length < string.length) {
-      return string
+      return string;
     }
     const startPaddingLength = Math.floor((length - string.length) / 2);
-    
+    const endPaddingLength = length - string.length - startPaddingLength;
+    const paddedString = ' '.repeat(startPaddingLength) + string + ' '.repeat(endPaddingLength);
+    return paddedString;
+  },
+
+  has(object, key) {
+    const hasValue = object[key] !== undefined;
+    return hasValue;
+  },
+
+  invert(object) {
+    const invertedObject = {};
+    for (let key in object) {
+      originalValue = object[key];
+      invertedObject[originalValue] = key;
+    }
+    return invertedObject;
+  },
+
+  findKey(object, predicate) {
+    for (let key in object) {
+      const value = object[key];
+      const predicateReturnValue = predicate(value);
+
+      if (predicateReturnValue) {
+        return key;
+      }
+    }
+    return undefined;
+  },
+
+  drop(array, n) {
+    if (n === undefined) {
+      n = 1;
+    }
+    const droppedArray = array.slice(n)
+    return droppedArray;
+  },
+
+  dropWhile(array, predicate) {
+    const dropNumber = array.findIndex((element, index) => {
+        return !predicate(element, index, array)
+      })
+      const droppedArray = this.drop(array, dropNumber);
+      return droppedArray
+  },
+
+  chunk() {
+
   }
 };
 
